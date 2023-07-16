@@ -1,0 +1,52 @@
+.home #navbar {
+  background-color: #ffd400;
+}
+.home #navbar .navbar__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.home #navbar .navbar__container .navbar__menu ul {
+  display: inline-flex;
+  align-items: center;
+}
+.home #navbar .navbar__container .navbar__menu ul li .navbar__link {
+  display: block;
+  font-family: robotoBold, sans-serif;
+  font-size: 17px;
+  padding: 15px;
+}
+.home #navbar .navbar__container .navbar__menu ul li span {
+  margin-left: 5px;
+}
+.home #navbar .navbar__container .navbar__menu ul li span:first-child {
+  margin-right: 5px;
+}
+.home #navbar .navbar__container .navbar__menu ul li:last-child .navbar__link {
+  padding-right: 0px;
+}
+.home #promote .container .promote__heading {
+  font-size: 30px;
+  margin: 0 0 10px 0;
+}
+.home #promote .container .promote__link {
+  display: block;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+.home #promote .container .promote__link .promote__img {
+  width: 100%;
+}
+.home #products .container .products_heading {
+  font-size: 30px;
+}
+.home #products .container .products__list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.home #products .container .products__list .products__item {
+  flex: calc(25% - 20px);
+  max-width: calc(25% - 20px);
+  margin: 10px;
+}
