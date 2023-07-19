@@ -1,0 +1,74 @@
+[
+  {
+    "install": 0,
+    "imgUrl": "../assets/landing-page/product_1.webp",
+    "title": "MSI Gaming GF63 Thin 11SC i5 11400H (664VN)",
+    "price": "29.490.000",
+    "sale": 10,
+    "rate": 4.5,
+    "quality": 199
+  },
+  {
+    "install": 0,
+    "imgUrl": "../assets/landing-page/product_2.webp",
+    "title": "Chuột Không dây Bluetooth Silent Rapoo M500",
+    "price": "1.690.000",
+    "sale": 10,
+    "rate": 4.5,
+    "quality": 199
+  },
+  {
+    "install": 10,
+    "imgUrl": "../assets/landing-page/product_3.webp",
+    "title": "Samsung 25W EB-P3400",
+    "price": "520.000",
+    "sale": 7,
+    "rate": 3,
+    "quality": 12
+  },
+  {
+    "install": 0,
+    "imgUrl": "../assets/landing-page/product_4.webp",
+    "title": "Xiaomi Redmi Watch 3 42.6mm dây silicone",
+    "price": "17.490.000",
+    "sale": 8,
+    "rate": 2.5,
+    "quality": 233
+  },
+  {
+    "install": 0,
+    "imgUrl": "../assets/landing-page/product_5.webp",
+    "title": "Cáp Type C - Type C 1.25m Mazer C2C125",
+    "price": "360.000",
+    "sale": 10,
+    "rate": 3.5,
+    "quality": 2
+  },
+  {
+    "install": 0,
+    "imgUrl": "../assets/landing-page/product_6.webp",
+    "title": "Sạc Anker PowerPort III Nano A2633",
+    "price": "1.200.000",
+    "sale": 10,
+    "rate": 3.5,
+    "quality": 277
+  },
+  {
+    "install": 7,
+    "imgUrl": "../assets/landing-page/product_7.webp",
+    "title": "Tai nghe Bluetooth True Wireless Mozard TS11 mini",
+    "price": "1.200.000",
+    "sale": 10,
+    "rate": 4,
+    "quality": 1332
+  },
+  {
+    "install": 0,
+    "imgUrl": "../assets/landing-page/product_8.webp",
+    "title": "Mazer Super Mini 22.5W V2",
+    "price": "1.200.000",
+    "sale": 10,
+    "rate": 3.5,
+    "quality": 277
+  }
+]
