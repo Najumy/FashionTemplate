@@ -86,10 +86,12 @@ a {
   width: 100%;
 }
 
-.container {
-  width: 100%;
+@media screen and (max-width: 575px) {
+  .container {
+    max-width: 100%;
+    width: 100%;
+  }
 }
-
 @media screen and (min-width: 576px) {
   .container {
     max-width: 540px;
@@ -113,10 +115,5 @@ a {
 @media screen and (min-width: 1400px) {
   .container {
     max-width: 1320px;
-  }
-}
-@media screen and (max-width: 575px) {
-  .container {
-    max-width: 100%;
   }
 }
