@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../assets/landing-page/ecommerce.webp"
+    />
+    <link
+      rel="stylesheet"
+      href="../library/bootstrap-5.3.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="../fonts/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="../styles/css/common.css" />
+    <link rel="stylesheet" href="../styles/css/admin.css" />
+    <title>Admin</title>
+  </head>
+  <body>
+    <div class="home">
+      <div id="navbar">
+        <div class="container navbar__container">
+          <div class="navbar__logo">
+            <a href="../landing-page/index.html">
+              <img src="../assets/landing-page/logo.png" alt="" />
+            </a>
+          </div>
+          <ul class="navbar__menu">
+            <li>
+              <a href="../landing-page/index.html" class="navbar__link">
+                <span><i class="fa-solid fa-house"></i></span>
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="../admin/index.html" class="navbar__link">
+                <span><i class="fa-solid fa-pager"></i></span>
+                <span>Admin</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="container">
+        <div class="filter">
+          <input
+            type="text"
+            id="input-search"
+            class="filter__textbox"
+            placeholder="Nhập tên sản phẩm muốn tìm kiếm"
+          />
+          <button id="btn-search" class="btn btn-search">Tìm kiếm</button>
+        </div>
+        <button class="btn-add-new" id="btn-add-new">Thêm mới sản phẩm</button>
+
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Tên sản phẩm</th>
+              <th>Giá</th>
+              <th>Đánh giá sản phẩm</th>
+              <th>Số lượng bán</th>
+              <th>Phần trăm giá gốc được giảm</th>
+              <th>Lãi suất trả góp</th>
+              <th>Ảnh sản phẩm</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="table">
+            <tr>
+              <td>1</td>
+              <td>Oppo</td>
+              <td>5000000</td>
+              <td>4.5</td>
+              <td>192</td>
+              <td>3%</td>
+              <td>0</td>
+              <td>product_1/webp</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="modal">
+      <div class="modal__body">
+        <h1 class="modal__heading">Thêm mới sản phẩm</h1>
+        <div class="divide"> </div>
+          <form action="">
+            <div class="form__container">
+              <label for="productName">Tên sản phẩm <span>*</span></label>
+              <input
+                type="text"
+                name="productName"
+                placeholder="Nhập tên sản phẩm"
+                id="productName"
+              />
+              <p class="error" id="name-error"></p>
+            </div>
+            <div class="form__container">
+              <label for="productPrice">Giá bán sản phẩm<span>*</span></label>
+              <input
+                type="text"
+                name="productPrice"
+                placeholder="Nhập giá sản phẩm"
+                id="productPrice"
+              />
+              <p class="error" id="price-error"></p>
+            </div>
+            <div class="form__container">
+              <label for="productRate">Đánh giá sản phẩm<span>*</span></label>
+              <input
+                type="number"
+                name="productRate"
+                placeholder="Nhập đánh giá sản phẩm"
+                id="productRate"
+              />
+              <p class="error" id="rate-error"></p>
+            </div>
+            <div class="form__container">
+              <label for="productSold">Số lượng đã bán <span>*</span></label>
+              <input
+                type="number"
+                name="productSold"
+                placeholder="Nhập số lượng sản phẩm đã bán"
+                id="productSold"
+              />
+              <p class="error" id="sold-error"></p>
+            </div>
+            <div class="form__container">
+              <label for="productSale">Phần trăm giá gốc được giảm</label>
+              <select name="productSale" id="productSale">
+                <option value="7.5">7.5</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="12.5">12.5</option>
+              </select>
+              <p class="error" id="sale-error"></p>
+            </div>
+            <div class="form__container">
+              <label for="productInstall">Lãi xuất trả góp<span>*</span></label>
+              <select name="productInstall" id="productInstall">
+                <option value="">Chọn lãi xuất trả góp</option>
+                <option value="0">0</option>
+                <option value="5">5</option>
+                <option value="7">7</option>
+              </select>
+              <p class="error" id="install-error"></p>
+            </div>
+            <div class="form__container">
+              <label for="productImg">Ảnh sản phẩm</label>
+              <input type="file" name="productImg" id="productImg" />
+              <p class="error" id="img-error"></p>
+            </div>
+           
+            <p>
+              <button class="btn btn-reset">Làm mới</button>
+              <button class="btn btn-submit" id="btn-submit-form">Thêm mới</button>
+              <button class="btn btn-cancel" id="btn-close-form">Đóng</button>
+            </p>
+            
+          </form>
+       
+      </div>
+    </div>
+    <script src="../library/bootstrap-5.3.0/js/bootstrap.min.js"></script>
+    <script src="../library/jquery_3.7.0.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

@@ -6,6 +6,9 @@
   align-items: center;
   justify-content: space-between;
 }
+.home #navbar .navbar__container .navbar__logo {
+  width: 100px;
+}
 .home #navbar .navbar__container .navbar__menu {
   display: inline-flex;
   align-items: center;
@@ -30,7 +33,7 @@
 .home #promote .promote__heading {
   font-size: 30px;
   font-family: robotoMedium, sans-serif;
-  margin: 0 0 10px 0;
+  margin: 30px 0 30px 0;
 }
 .home #promote .promote__link {
   display: block;
@@ -76,6 +79,13 @@
   overflow: hidden;
   border-radius: 0 10px 10px 10px;
   position: relative;
+}
+.home #products .products__list .products__item small {
+  background-color: #de4458;
+  padding: 5px 10px;
+}
+.home #products .products__list .products__item .products__img-container {
+  height: 279px;
 }
 .home #products .products__list .products__item .products__sale {
   position: absolute;

@@ -13,7 +13,7 @@ $(document).ready(function () {
           
           <div class="products__item">
           <small>Trả góp ${data[index].install}%</small>
-          <p>
+          <p class="products__img-container">
             <a href="#" class="products__img">
               <img src=${data[index].imgUrl} alt="" />
             </a>

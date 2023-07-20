@@ -15,6 +15,9 @@ $c-red-light: #de4458;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      .navbar__logo {
+        width: 100px;
+      }
       .navbar__menu {
         display: inline-flex;
         align-items: center;
@@ -35,7 +38,7 @@ $c-red-light: #de4458;
             }
           }
         }
-      } 
+      }
     }
   }
 
@@ -53,7 +56,7 @@ $c-red-light: #de4458;
     .promote__heading {
       font-size: 30px;
       font-family: robotoMedium, sans-serif;
-      margin: 0 0 10px 0;
+      margin: 30px 0 30px 0;
     }
     .promote__link {
       display: block;
@@ -102,6 +105,13 @@ $c-red-light: #de4458;
         overflow: hidden;
         border-radius: 0 10px 10px 10px;
         position: relative;
+        small {
+          background-color: $c-red-light;
+          padding: 5px 10px;
+        }
+        .products__img-container {
+          height: 279px;
+        }
         .products__sale {
           position: absolute;
           top: 0;
@@ -114,6 +124,7 @@ $c-red-light: #de4458;
         }
         .products__img {
           margin: 50px 0 30px 0;
+
           a {
             display: block;
             text-align: center;
@@ -288,6 +299,7 @@ $c-red-light: #de4458;
       }
     }
     #products {
+      
       .products__heading {
         font-size: 25px;
       }
