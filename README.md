@@ -9,6 +9,7 @@ Ngôn ngữ sử dụng: HTML, SCSS, javascript, jquery.
 
 Công cụ: Visual studio code, git.
 
+-----------------------------------------------------------
 
 #Thegioididong
 Code and design web page by myself.
