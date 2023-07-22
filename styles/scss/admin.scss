@@ -75,12 +75,21 @@ $c-red-light: #de4458;
     width: 100%;
     border-collapse: collapse;
     tr{
-    
+      
       th,td{
         border: 1px solid black;
         min-width: 50px;
         text-align: center;
         padding: 5px 0;
+      }
+      td{
+        .btn{
+          color: $c-white;
+          background-color: $c-yellow;
+          &.btn-delete{
+            background-color: $c-red;
+          }
+        }
       }
     }
   }

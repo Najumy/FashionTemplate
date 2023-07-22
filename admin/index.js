@@ -1,8 +1,12 @@
 $(document).ready(function () {
   //khởi tạo 1 mảng lưu trữ trong local storage
-  let products = JSON.parse(localStorage.getItem("products")) || [];
+  let products = JSON.parse(window.localStorage.getItem("products")) || [];
   console.log(products);
+  renderProducts(products);
 
+  //local storage, session storage, cookie
+  //session : lưu ở browsẻ nhưng khi tắt tab sẽ mất
+  //local :kể cả khi tắt tab tắt trình duyệt thì dữ liệu vẫn còn
   $("#btn-add-new").on("click", function (event) {
     $("#modal").addClass("active");
   });
@@ -13,10 +17,30 @@ $(document).ready(function () {
   });
   $("btn-close-form").on("click", function (event) {
     if (event.target === this) {
-      
       $("#modal").removeClass("active");
-      
     }
+  });
+
+  $("#table").on("click","#btn-delete-product", function (event) {
+    //phải biết được đang chọn product nào
+    let rowSelected = this.parentElement.parentElement;
+    const deleteProduct = products.filter(
+      (products) => products.id !== rowSelected.children[0].textContent
+     
+    );
+
+    window.localStorage.setItem("products",JSON.stringify(deleteProduct))
+    products.JSON.parse(window.localStorage.getItem("products"))
+    console.log(("products",products));
+    
+    renderProducts(products)
+    
+
+    //lấy ra id của product mình chọn
+
+    //lập qua list products để tìm ra product nào có id trùng với id mình chọn
+
+    //xóa product có id tương ứng
   });
   $("#btn-submit-form").on("click", function (event) {
     event.preventDefault();
@@ -57,7 +81,6 @@ $(document).ready(function () {
       install.trim().length &&
       image.trim().length
     ) {
-
       //thêm product vào trong mảng local storage để lưu trữ
       products.push({
         id: String(Math.random()),
@@ -69,14 +92,54 @@ $(document).ready(function () {
         install: install,
         image: image,
       });
-      console.log(products);
-
-      //lấy product từ trong local storage xong render ra màn hình
-      products.forEach(element => {
-        $("#table").append()
-      });
+      window.localStorage.setItem("products", JSON.stringify(products));
+      closeModal();
+      clearError();
+      renderProducts(products);
     }
   });
-
-  
 });
+function resetForm() {
+  $("input#productName").val("");
+  $("input#productPrice").val("");
+  $("input#productRate").val("");
+  $("input#productSold").val("");
+  $("#productSale").val("7.5");
+  $("#productInstall").val("");
+  $("#productImg").empty();
+}
+
+function closeModal() {
+  $("#modal").removeClass("active");
+}
+
+function clearError() {
+  $("#name-error").text("");
+
+  $("#price-error").text("");
+
+  $("#rate-error").text("");
+
+  $("#sold-error").text("");
+  $("#install-error").text("");
+  $("#img-error").text("");
+}
+function renderProducts(products) {
+  for (let index = 0; index < products.length; index++) {
+    $("#table").append(`
+      <tr>
+      <td>${products[index].id}</td>
+        <td>${products[index].name}</td>
+        <td>${products[index].price}</td>
+        <td>${products[index].rate}</td>
+        <td>${products[index].sold}</td>
+       <td>${products[index].sale}</td>
+       <td>${products[index].install}</td>
+       <td>${products[index].image}</td>
+        <td ><button class="btn btn-edit" id="btn-edit-product">Edit</button></td>
+         <td> <button  class="btn btn-delete" id="btn-delete-product">Delete</button></td>
+   
+      </tr>
+    `);
+  }
+}

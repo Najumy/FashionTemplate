@@ -64,6 +64,13 @@
   text-align: center;
   padding: 5px 0;
 }
+.home table tr td .btn {
+  color: #fff;
+  background-color: rgb(255, 213, 0);
+}
+.home table tr td .btn.btn-delete {
+  background-color: #d0021c;
+}
 
 #modal {
   position: fixed;
