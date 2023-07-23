@@ -132,6 +132,13 @@ $c-red-light: #de4458;
         span{
           color: red;
         }
+        &.btn-upload{
+          background-color: $c-yellow-light;
+          border: 1px solid black;
+          border-radius: 5px;
+          letter-spacing: 2px;
+          width: 20%;
+        }
       }
       input:not(input[type="file"]){
         border: 0.5px solid rgb(198,195,195);

@@ -43,7 +43,8 @@
         </div>
       </div>
       <div class="container">
-        <div class="filter">
+        <br>
+        <!-- <div class="filter">
           <input
             type="text"
             id="input-search"
@@ -51,7 +52,7 @@
             placeholder="Nhập tên sản phẩm muốn tìm kiếm"
           />
           <button id="btn-search" class="btn btn-search">Tìm kiếm</button>
-        </div>
+        </div> -->
         <button class="btn-add-new" id="btn-add-new">Thêm mới sản phẩm</button>
 
         <table>
@@ -141,13 +142,18 @@
               <p class="error" id="install-error"></p>
             </div>
             <div class="form__container">
-              <label for="productImg">Ảnh sản phẩm</label>
-              <input type="file" name="productImg" id="productImg" />
+              <label for="">Ảnh sản phẩm</label>
+              <label class="btn-upload" for="productImg">Tải ảnh lên</label>
+              <input type="file" hidden name="productImg" id="productImg" />
+              <span id="product-image">
+               
+              </span>
+
               <p class="error" id="img-error"></p>
             </div>
            
             <p>
-              <button class="btn btn-reset">Làm mới</button>
+              <button class="btn btn-reset" type="reset" id="btn-reset">Làm mới</button>
               <button class="btn btn-submit" id="btn-submit-form">Thêm mới</button>
               <button class="btn btn-cancel" id="btn-close-form">Đóng</button>
             </p>

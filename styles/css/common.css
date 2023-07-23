@@ -61,12 +61,15 @@ button {
 input {
   border: none;
 }
+
 input:focus {
   outline: none;
 }
+
 input::-moz-placeholder {
   font-size: 90%;
 }
+
 input::placeholder {
   font-size: 90%;
 }

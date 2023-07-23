@@ -110,6 +110,13 @@
 #modal .modal__body .form__container label span {
   color: red;
 }
+#modal .modal__body .form__container label.btn-upload {
+  background-color: #fffdef;
+  border: 1px solid black;
+  border-radius: 5px;
+  letter-spacing: 2px;
+  width: 20%;
+}
 #modal .modal__body .form__container input:not(input[type=file]) {
   border: 0.5px solid rgb(198, 195, 195);
   border-radius: 3px;

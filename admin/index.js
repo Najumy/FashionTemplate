@@ -1,6 +1,7 @@
 $(document).ready(function () {
   //khởi tạo 1 mảng lưu trữ trong local storage
   let products = JSON.parse(window.localStorage.getItem("products")) || [];
+  let selectedProduct = null;
   console.log(products);
   renderProducts(products);
 
@@ -12,35 +13,67 @@ $(document).ready(function () {
   });
   $("#modal").on("click", function (event) {
     if (event.target === this) {
-      $("#modal").removeClass("active");
+      closeModal();
     }
   });
   $("btn-close-form").on("click", function (event) {
     if (event.target === this) {
-      $("#modal").removeClass("active");
+      closeModal();
     }
   });
+ $("#productName").on("keydown",function(){
+  $("#name-error").empty();
+ })
 
-  $("#table").on("click","#btn-delete-product", function (event) {
+ $("#btn-reset").on("click",function(){
+  $("#product-image").text("");
+ })
+
+ 
+  $("#table").on("click", "#btn-delete-product", function (event) {
     //phải biết được đang chọn product nào
     let rowSelected = this.parentElement.parentElement;
+    selectedProduct = products.find(
+      (product) => product.id === rowSelected.children[0].textContent
+    );
     const deleteProduct = products.filter(
       (products) => products.id !== rowSelected.children[0].textContent
-     
     );
 
-    window.localStorage.setItem("products",JSON.stringify(deleteProduct))
-    products.JSON.parse(window.localStorage.getItem("products"))
-    console.log(("products",products));
-    
-    renderProducts(products)
-    
+    products = [...deleteProduct];
+    window.localStorage.setItem("products", JSON.stringify(products));
+
+    renderProducts(products);
 
     //lấy ra id của product mình chọn
 
     //lập qua list products để tìm ra product nào có id trùng với id mình chọn
 
     //xóa product có id tương ứng
+  });
+
+  $("#productImg").on("change", function (event) {
+    console.log(this);
+    $("#product-image").text(this.files[0].name)
+    
+  });
+
+  $("#table").on("click", "#btn-edit-product", function (event) {
+    $(".modal__heading").text("Chỉnh sửa sản phẩm");
+    $("#btn-submit-form").text("Chỉnh sửa");
+    $("#modal").addClass("active");
+    let rowSelected = this.parentElement.parentElement;
+    selectedProduct = products.find(
+      (product) => product.id === rowSelected.children[0].textContent
+    );
+
+    $("input#productName").val(selectedProduct.name);
+    $("input#productPrice").val(selectedProduct.price);
+    $("input#productRate").val(selectedProduct.price);
+    $("input#productSold").val(selectedProduct.sold);
+    $("#productSale").val(selectedProduct.sale);
+    $("#productInstall").val(selectedProduct.install);
+    $("#product-image").text(selectedProduct.image);
   });
   $("#btn-submit-form").on("click", function (event) {
     event.preventDefault();
@@ -50,7 +83,7 @@ $(document).ready(function () {
     const sold = $("#productSold").val();
     const sale = $("#productSale").val();
     const install = $("#productInstall").val();
-    const image = $("#productImg").val();
+    const image = $("#product-image").text();
     console.log(image);
 
     //xét valid cho input
@@ -82,20 +115,38 @@ $(document).ready(function () {
       image.trim().length
     ) {
       //thêm product vào trong mảng local storage để lưu trữ
-      products.push({
-        id: String(Math.random()),
-        name: name.trim(),
-        price: price.trim(),
-        rate: rate.trim(),
-        sold: sold.trim(),
-        sale: sale,
-        install: install,
-        image: image,
-      });
-      window.localStorage.setItem("products", JSON.stringify(products));
-      closeModal();
-      clearError();
-      renderProducts(products);
+      if (!selectedProduct) {
+        products.push({
+          id: String(Math.random()),
+          name: name.trim(),
+          price: price.trim(),
+          rate: rate.trim(),
+          sold: sold.trim(),
+          sale: sale,
+          install: install,
+          image: image,
+        });
+        window.localStorage.setItem("products", JSON.stringify(products));
+        closeModal();
+        clearError();
+        renderProducts(products);
+      } else {
+        products.forEach((product) => {
+          if (String(product.id) === selectedProduct.id) {
+            product.name = $("input#productName").val();
+            product.price = $("input#productPrice").val();
+            product.rate = $("input#productRate").val();
+            product.sold = $("input#productSold").val();
+            product.sale = $("#productSale").val();
+            product.install = $("#productInstall").val();
+            product.image = $("#product-image").text();
+          }
+        });
+        window.localStorage.setItem("products", JSON.stringify(products));
+        closeModal();
+        clearError();
+        renderProducts(products);
+      }
     }
   });
 });
@@ -106,11 +157,12 @@ function resetForm() {
   $("input#productSold").val("");
   $("#productSale").val("7.5");
   $("#productInstall").val("");
-  $("#productImg").empty();
+  $("#product-image").text();
 }
 
 function closeModal() {
   $("#modal").removeClass("active");
+  resetForm();
 }
 
 function clearError() {
@@ -125,6 +177,7 @@ function clearError() {
   $("#img-error").text("");
 }
 function renderProducts(products) {
+  $("#table").empty();
   for (let index = 0; index < products.length; index++) {
     $("#table").append(`
       <tr>
