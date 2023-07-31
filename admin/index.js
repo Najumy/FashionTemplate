@@ -1,12 +1,22 @@
 $(document).ready(function () {
   //khởi tạo 1 mảng lưu trữ trong local storage
-  let products = JSON.parse(window.localStorage.getItem("products")) || [];
+  // let products = JSON.parse(window.localStorage.getItem("products")) || [];
+  let products = [];
   let selectedProduct = null;
-  console.log(products);
-  renderProducts(products);
+  // console.log(products);
+
+  $.ajax(`http://localhost:3000/products`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "GET",
+  }).done(function (data) {
+    products = [...data];
+    renderProducts(products);
+  });
 
   //local storage, session storage, cookie
-  //session : lưu ở browsẻ nhưng khi tắt tab sẽ mất
+  //session : lưu ở browser nhưng khi tắt tab sẽ mất
   //local :kể cả khi tắt tab tắt trình duyệt thì dữ liệu vẫn còn
   $("#btn-add-new").on("click", function (event) {
     $("#modal").addClass("active");
@@ -21,41 +31,33 @@ $(document).ready(function () {
       closeModal();
     }
   });
- $("#productName").on("keydown",function(){
-  $("#name-error").empty();
- })
+  $("#productName").on("keydown", function () {
+    $("#name-error").empty();
+  });
 
- $("#btn-reset").on("click",function(){
-  $("#product-image").text("");
- })
+  $("#btn-reset").on("click", function () {
+    $("#product-image").text("");
+  });
 
- 
   $("#table").on("click", "#btn-delete-product", function (event) {
     //phải biết được đang chọn product nào
     let rowSelected = this.parentElement.parentElement;
     selectedProduct = products.find(
-      (product) => product.id === rowSelected.children[0].textContent
+      (product) =>
+        String(product.id) === String(rowSelected.children[0].textContent)
     );
-    const deleteProduct = products.filter(
-      (products) => products.id !== rowSelected.children[0].textContent
-    );
-
-    products = [...deleteProduct];
-    window.localStorage.setItem("products", JSON.stringify(products));
-
-    renderProducts(products);
-
-    //lấy ra id của product mình chọn
-
-    //lập qua list products để tìm ra product nào có id trùng với id mình chọn
-
-    //xóa product có id tương ứng
+    console.log(selectedProduct);
+    $.ajax(`http://localhost:3000/products/${String(selectedProduct.id)}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+    });
   });
 
   $("#productImg").on("change", function (event) {
     console.log(this);
-    $("#product-image").text(this.files[0].name)
-    
+    $("#product-image").text(this.files[0].name);
   });
 
   $("#table").on("click", "#btn-edit-product", function (event) {
@@ -64,17 +66,18 @@ $(document).ready(function () {
     $("#modal").addClass("active");
     let rowSelected = this.parentElement.parentElement;
     selectedProduct = products.find(
-      (product) => product.id === rowSelected.children[0].textContent
+      (product) => String(product.id) === String(rowSelected.children[0].textContent)
     );
 
     $("input#productName").val(selectedProduct.name);
     $("input#productPrice").val(selectedProduct.price);
-    $("input#productRate").val(selectedProduct.price);
+    $("input#productRate").val(selectedProduct.rate);
     $("input#productSold").val(selectedProduct.sold);
     $("#productSale").val(selectedProduct.sale);
     $("#productInstall").val(selectedProduct.install);
     $("#product-image").text(selectedProduct.image);
   });
+
   $("#btn-submit-form").on("click", function (event) {
     event.preventDefault();
     const name = $("#productName").val();
@@ -116,36 +119,57 @@ $(document).ready(function () {
     ) {
       //thêm product vào trong mảng local storage để lưu trữ
       if (!selectedProduct) {
-        products.push({
-          id: String(Math.random()),
-          name: name.trim(),
-          price: price.trim(),
-          rate: rate.trim(),
-          sold: sold.trim(),
+        const product = {
+          name: name,
+          price: price,
+          rate: rate,
+          sold: sold,
           sale: sale,
           install: install,
           image: image,
+        };
+        $.ajax("http://localhost:3000/products", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+          data: JSON.stringify(product),
         });
-        window.localStorage.setItem("products", JSON.stringify(products));
+
         closeModal();
         clearError();
-        renderProducts(products);
       } else {
-        products.forEach((product) => {
-          if (String(product.id) === selectedProduct.id) {
-            product.name = $("input#productName").val();
-            product.price = $("input#productPrice").val();
-            product.rate = $("input#productRate").val();
-            product.sold = $("input#productSold").val();
-            product.sale = $("#productSale").val();
-            product.install = $("#productInstall").val();
-            product.image = $("#product-image").text();
-          }
+        const product = {
+          name: $("input#productName").val(),
+          price: $("input#productPrice").val(),
+          rate: $("input#productRate").val(),
+          sold: $("input#productSold").val(),
+          sale: $("#productSale").val(),
+          install: $("#productInstall").val(),
+          image: $("#product-image").text(),
+        };
+        $.ajax(`http://localhost:3000/products/${String(selectedProduct.id)}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "PUT",
+          data: JSON.stringify(product),
         });
-        window.localStorage.setItem("products", JSON.stringify(products));
+        // products.forEach((product) => {
+        //   if (String(product.id) === selectedProduct.id) {
+        //     product.name = $("input#productName").val();
+        //     product.price = $("input#productPrice").val();
+        //     product.rate = $("input#productRate").val();
+        //     product.sold = $("input#productSold").val();
+        //     product.sale = $("#productSale").val();
+        //     product.install = $("#productInstall").val();
+        //     product.image = $("#product-image").text();
+        //   }
+        // });
+        // window.localStorage.setItem("products", JSON.stringify(products));
         closeModal();
         clearError();
-        renderProducts(products);
+        // renderProducts();
       }
     }
   });
@@ -180,19 +204,19 @@ function renderProducts(products) {
   $("#table").empty();
   for (let index = 0; index < products.length; index++) {
     $("#table").append(`
-      <tr>
-      <td>${products[index].id}</td>
-        <td>${products[index].name}</td>
-        <td>${products[index].price}</td>
-        <td>${products[index].rate}</td>
-        <td>${products[index].sold}</td>
-       <td>${products[index].sale}</td>
-       <td>${products[index].install}</td>
-       <td>${products[index].image}</td>
-        <td ><button class="btn btn-edit" id="btn-edit-product">Edit</button></td>
-         <td> <button  class="btn btn-delete" id="btn-delete-product">Delete</button></td>
-   
-      </tr>
-    `);
+        <tr>
+        <td>${products[index].id}</td>
+          <td>${products[index].name}</td>
+          <td>${products[index].price}</td>
+          <td>${products[index].rate}</td>
+          <td>${products[index].sold}</td>
+         <td>${products[index].sale}</td>
+         <td>${products[index].install}</td>
+         <td>${products[index].image}</td>
+          <td ><button class="btn btn-edit" id="btn-edit-product">Edit</button></td>
+           <td> <button  class="btn btn-delete" id="btn-delete-product">Delete</button></td>
+     
+        </tr>
+      `);
   }
 }
