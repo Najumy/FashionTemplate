@@ -123,7 +123,7 @@ $c-red-light: #de4458;
           border-radius: 0 0 10px 0;
         }
         .products__img {
-        
+          margin-bottom: 30px;
 
           a {
             display: block;
@@ -138,7 +138,7 @@ $c-red-light: #de4458;
         .products__title {
           font-size: 14px;
           font-family: robotoBold, sans-serif;
-          margin: 0 0 15px 0;
+          margin: 30px 0 15px 0;
         }
         .products__price {
           color: $c-red;
@@ -169,6 +169,32 @@ $c-red-light: #de4458;
         }
       }
     }
+  }
+
+  #pagination {
+    margin-top: 30px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    .page-item {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-right: 8px;
+      min-width: 20px;
+      text-align: center;
+      
+      &:hover{
+        background-color: $c-red;
+        color: white;
+        cursor: pointer;
+      }
+    }
+    li.active {
+      background-color: $c-red;
+      color: white;
+    }
+    
   }
   footer {
     background-color: $c-white;

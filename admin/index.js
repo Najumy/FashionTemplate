@@ -1,19 +1,42 @@
+//Thực thi function sau khi load trang web của mình
 $(document).ready(function () {
   //khởi tạo 1 mảng lưu trữ trong local storage
   // let products = JSON.parse(window.localStorage.getItem("products")) || [];
   let products = [];
   let selectedProduct = null;
-  // console.log(products);
 
-  $.ajax(`http://localhost:3000/products`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
+  currentPage = 1;
+  rowPerPage = 5;
+  perListPost = [];
+  totalPage = 0;
+  $.ajax({
+    url: "http://localhost:3000/products",
     method: "GET",
-  }).done(function (data) {
-    products = [...data];
-    renderProducts(products);
+    dataType: "json",
+    success: function (data) {
+      products = [...data];
+      console.log(products);
+      //sử dụng hàm slice để lọc các các bản ghi trong products
+      perListPost = products.slice(
+        (currentPage - 1) * rowPerPage,
+        (currentPage - 1) * rowPerPage + rowPerPage
+      );
+      renderTable(perListPost);
+      renderPagination();
+    },
+    error: function (error) {
+      console.log("Error", error);
+    },
   });
+  // $.ajax(`http://localhost:3000/products`, {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   method: "GET",
+  // }).done(function (data) {
+  //   products = [...data];
+  //   renderProducts(products);
+  // });
 
   //local storage, session storage, cookie
   //session : lưu ở browser nhưng khi tắt tab sẽ mất
@@ -42,6 +65,7 @@ $(document).ready(function () {
   $("#table").on("click", "#btn-delete-product", function (event) {
     //phải biết được đang chọn product nào
     let rowSelected = this.parentElement.parentElement;
+    
     selectedProduct = products.find(
       (product) =>
         String(product.id) === String(rowSelected.children[0].textContent)
@@ -56,17 +80,19 @@ $(document).ready(function () {
   });
 
   $("#productImg").on("change", function (event) {
-    console.log(this);
+   
     $("#product-image").text(this.files[0].name);
   });
 
   $("#table").on("click", "#btn-edit-product", function (event) {
+    
     $(".modal__heading").text("Chỉnh sửa sản phẩm");
     $("#btn-submit-form").text("Chỉnh sửa");
     $("#modal").addClass("active");
     let rowSelected = this.parentElement.parentElement;
     selectedProduct = products.find(
-      (product) => String(product.id) === String(rowSelected.children[0].textContent)
+      (product) =>
+        String(product.id) === String(rowSelected.children[0].textContent)
     );
 
     $("input#productName").val(selectedProduct.name);
@@ -173,7 +199,92 @@ $(document).ready(function () {
       }
     }
   });
+  changePage = (index) => {
+    currentPage = index;
+    perListPost = products.slice(
+      (currentPage - 1) * rowPerPage,
+      (currentPage - 1) * rowPerPage + rowPerPage
+    );
+    renderTable(perListPost);
+    renderPagination();
+  };
+  //cú pháp nháy kép string literals : khi viết cú pháp vd: "abx" + element + "xyz"
+  //cú phép nháy đơn template literal : có thể truyền vào 1 biến, 1 expression  vd : `abc${element}xyz `: Không cần phải + đeẻ nối chuỗi
+  renderPagination = () => {
+    $("#pagination").empty();
+    totalPage = Math.ceil(products.length / rowPerPage);
+    for (let i = 1; i <= totalPage; i++) {
+      $("#pagination").append(
+        `
+      <li class="page-item" onclick="changePage(${i})">${i}</li>
+      `
+      );
+      if (currentPage == i) {
+        $("#pagination li").removeClass("active");
+        $("#pagination li").addClass("active");
+      }
+    }
+    $("#pagination li").not(`:nth-child(${currentPage})`).removeClass("active");
+  };
+
+  $("#btn-search").on("click", function (event) {
+    event.preventDefault();
+    console.log(1);
+    if ($("#input-search").val().trim().length) {
+      const searchProducts = products.filter((product) =>
+        product.name
+          .toLowerCase()
+          .includes($("#input-search").val().trim().toLowerCase())
+      );
+      if (searchProducts.length) {
+        renderTable(searchProducts);
+        $("#pagination").hide();
+      } else {
+        $("#table").empty();
+        $("#null-search").text("Không tìm thấy sản phẩm phù hợp");
+        $("#pagination").hide();
+      }
+    } else {
+      perListPost = products.slice(
+        (currentPage - 1) * rowPerPage,
+        (currentPage - 1) * rowPerPage + rowPerPage
+      );
+      renderTable(perListPost);
+      renderPagination();
+      $("#pagination").show();
+    }
+  });
 });
+
+renderTable = (perListPost) => {
+  let count =0;
+  $("#null-search").text("");
+  $("#table").empty();
+  if (perListPost.length && perListPost) {
+    perListPost.map((item) => {
+      if(item.id%2==0){
+        count+=item.id
+      }
+      $("#table").append(`
+      <tr>
+      <td>${item.id}</td>
+        <td>${item.name}</td>
+        <td>${item.price}</td>
+        <td>${item.rate}</td>
+        <td>${item.sold}</td>
+       <td>${item.sale}</td>
+       <td>${item.install}</td>
+       <td>${item.image}</td>
+        <td ><button class="btn btn-edit" id="btn-edit-product">Sửa</button></td>
+         <td> <button  class="btn btn-delete" id="btn-delete-product">Xoá</button></td>
+   
+      </tr>
+    `);
+    });
+  }
+  console.log(count);
+};
+
 function resetForm() {
   $("input#productName").val("");
   $("input#productPrice").val("");
@@ -200,23 +311,24 @@ function clearError() {
   $("#install-error").text("");
   $("#img-error").text("");
 }
-function renderProducts(products) {
-  $("#table").empty();
-  for (let index = 0; index < products.length; index++) {
-    $("#table").append(`
-        <tr>
-        <td>${products[index].id}</td>
-          <td>${products[index].name}</td>
-          <td>${products[index].price}</td>
-          <td>${products[index].rate}</td>
-          <td>${products[index].sold}</td>
-         <td>${products[index].sale}</td>
-         <td>${products[index].install}</td>
-         <td>${products[index].image}</td>
-          <td ><button class="btn btn-edit" id="btn-edit-product">Edit</button></td>
-           <td> <button  class="btn btn-delete" id="btn-delete-product">Delete</button></td>
+
+// function renderProducts(products) {
+//   $("#table").empty();
+//   for (let index = 0; index < products.length; index++) {
+//     $("#table").append(`
+//         <tr>
+//         <td>${products[index].id}</td>
+//           <td>${products[index].name}</td>
+//           <td>${products[index].price}</td>
+//           <td>${products[index].rate}</td>
+//           <td>${products[index].sold}</td>
+//          <td>${products[index].sale}</td>
+//          <td>${products[index].install}</td>
+//          <td>${products[index].image}</td>
+//           <td ><button class="btn btn-edit" id="btn-edit-product">Sửa</button></td>
+//            <td> <button  class="btn btn-delete" id="btn-delete-product">Xoá</button></td>
      
-        </tr>
-      `);
-  }
-}
+//         </tr>
+//       `);
+//   }
+// }

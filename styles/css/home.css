@@ -103,6 +103,9 @@
   padding: 5px 10px;
   border-radius: 0 0 10px 0;
 }
+.home #products .products__list .products__item .products__img {
+  margin-bottom: 30px;
+}
 .home #products .products__list .products__item .products__img a {
   display: block;
   text-align: center;
@@ -115,7 +118,7 @@
 .home #products .products__list .products__item .products__title {
   font-size: 14px;
   font-family: robotoBold, sans-serif;
-  margin: 0 0 15px 0;
+  margin: 30px 0 15px 0;
 }
 .home #products .products__list .products__item .products__price {
   color: #d0021c;
@@ -143,6 +146,29 @@
 }
 .home #products .products__list .products__item .products__rate span:last-child {
   margin: 0 0 0 10px;
+}
+.home #pagination {
+  margin-top: 30px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+.home #pagination .page-item {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-right: 8px;
+  min-width: 20px;
+  text-align: center;
+}
+.home #pagination .page-item:hover {
+  background-color: #d0021c;
+  color: white;
+  cursor: pointer;
+}
+.home #pagination li.active {
+  background-color: #d0021c;
+  color: white;
 }
 .home footer {
   background-color: #fff;

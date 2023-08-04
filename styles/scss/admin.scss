@@ -31,6 +31,7 @@ $c-red-light: #de4458;
               display: inline-block;
               padding: 0 2px;
             }
+
             &:last-child {
               padding-right: 0;
               padding-left: 30px;
@@ -41,13 +42,12 @@ $c-red-light: #de4458;
     }
   }
 
-  
-  .filter{
+  .filter {
     margin: 50px 0;
     display: flex;
     justify-content: center;
     gap: 10px;
-    &__textbox{
+    &__textbox {
       border: 1px solid grey;
       width: 550px;
       display: inline-block;
@@ -55,47 +55,80 @@ $c-red-light: #de4458;
       padding: 8px;
       height: 40px;
     }
-    .btn-search{
+    .btn-search {
       background-color: $c-yellow;
-      font-family: robotoBold,sans-serif;
+      font-family: robotoBold, sans-serif;
       letter-spacing: 2px;
     }
   }
-  .btn-add-new{
+  .btn-add-new {
     background-color: $c-yellow;
-      font-family: robotoBold,sans-serif;
-      letter-spacing: 2px;  
-      padding: 10px 10px;
-      border-radius: 3px;
-      margin: 0 0 20px 0;
+    font-family: robotoBold, sans-serif;
+    letter-spacing: 2px;
+    padding: 10px 10px;
+    border-radius: 3px;
+    margin: 0 0 20px 0;
   }
-  
 
-  table{
+  table {
     width: 100%;
     border-collapse: collapse;
-    tr{
-      
-      th,td{
+    tr {
+      th,
+      td {
         border: 1px solid black;
         min-width: 50px;
         text-align: center;
         padding: 5px 0;
       }
-      td{
-        .btn{
+      td {
+        .btn {
           color: $c-white;
           background-color: $c-yellow;
-          &.btn-delete{
+          &.btn-delete {
             background-color: $c-red;
           }
         }
       }
     }
   }
+
+  #pagination {
+    margin-top: 30px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    .page-item {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-right: 8px;
+      min-width: 20px;
+      text-align: center;
+      
+      &:hover{
+        background-color: $c-red;
+        color: white;
+        cursor: pointer;
+      }
+    }
+    li.active {
+      background-color: $c-red;
+      color: white;
+    }
+    
+  }
+
+  #null-search{
+    text-align: center;
+    color: red;
+    font-family: robotoBold,sans-serif;
+    font-size: 15px;
+    margin: 30px auto;
+  }
 }
 
-#modal{
+#modal {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.21);
   top: 0;
@@ -106,33 +139,32 @@ $c-red-light: #de4458;
   justify-content: center;
   align-items: center;
   display: none;
-  &.active{
+  &.active {
     display: flex;
   }
-  .modal__body{
+  .modal__body {
     background-color: $c-white;
     width: 620px;
     padding: 20px;
     border-radius: 10px;
-    .modal__heading{
+    .modal__heading {
       font-size: 25px;
       font-family: robotoBold, sans-serif;
     }
-    .divide{
+    .divide {
       height: 3px;
       background-color: black;
       margin: 10px 0;
     }
-    .form__container{
-      
-      label{
+    .form__container {
+      label {
         display: block;
         font-size: 15px;
         margin: 20px 0 5px 0;
-        span{
+        span {
           color: red;
         }
-        &.btn-upload{
+        &.btn-upload {
           background-color: $c-yellow-light;
           border: 1px solid black;
           border-radius: 5px;
@@ -140,40 +172,39 @@ $c-red-light: #de4458;
           width: 20%;
         }
       }
-      input:not(input[type="file"]){
-        border: 0.5px solid rgb(198,195,195);
+      input:not(input[type="file"]) {
+        border: 0.5px solid rgb(198, 195, 195);
         border-radius: 3px;
         padding: 8px;
         height: 35px;
         width: 100%;
       }
-      .error{
+      .error {
         color: red;
         text-align: left;
         margin: 10px 0 0 0;
       }
-      select{
-        border: 0.5px solid rgb(198,195,195);
+      select {
+        border: 0.5px solid rgb(198, 195, 195);
         border-radius: 3px;
         padding: 8px;
         height: 35px;
         width: 100%;
       }
     }
-    p{
+    p {
       text-align: center;
-      margin-top:10px;
-      .btn{
+      margin-top: 10px;
+      .btn {
         background-color: $c-red;
         color: #fff;
         margin: 0 5px;
         font-family: robotoBold, sans-serif;
         width: 100px;
-        &:nth-child(1){
+        &:nth-child(1) {
           background-color: $c-grey;
         }
       }
     }
-
   }
 }
