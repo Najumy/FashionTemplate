@@ -1,5 +1,5 @@
 # Thế giới di động 
-Tự code thiết kế dao diện dựa theo ý tưởng trang web thế giới di động.
+Tự code thiết kế giao diện dựa theo ý tưởng trang web thế giới di động.
 
 Chức năng : Liệt kê hiển thị sản phẩm , phân trang , quản lý sản phẩm
 
