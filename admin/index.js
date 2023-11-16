@@ -14,7 +14,7 @@ $(document).ready(function () {
     method: "GET",
     dataType: "json",
     success: function (data) {
-      products = [...data];
+      products = [...data]; 
       console.log(products);
       //sử dụng hàm slice để lọc các các bản ghi trong products
       perListPost = products.slice(
@@ -28,15 +28,7 @@ $(document).ready(function () {
       console.log("Error", error);
     },
   });
-  // $.ajax(`http://localhost:3000/products`, {
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   method: "GET",
-  // }).done(function (data) {
-  //   products = [...data];
-  //   renderProducts(products);
-  // });
+  
 
   //local storage, session storage, cookie
   //session : lưu ở browser nhưng khi tắt tab sẽ mất
@@ -181,18 +173,7 @@ $(document).ready(function () {
           method: "PUT",
           data: JSON.stringify(product),
         });
-        // products.forEach((product) => {
-        //   if (String(product.id) === selectedProduct.id) {
-        //     product.name = $("input#productName").val();
-        //     product.price = $("input#productPrice").val();
-        //     product.rate = $("input#productRate").val();
-        //     product.sold = $("input#productSold").val();
-        //     product.sale = $("#productSale").val();
-        //     product.install = $("#productInstall").val();
-        //     product.image = $("#product-image").text();
-        //   }
-        // });
-        // window.localStorage.setItem("products", JSON.stringify(products));
+ 
         closeModal();
         clearError();
         // renderProducts();
@@ -312,23 +293,4 @@ function clearError() {
   $("#img-error").text("");
 }
 
-// function renderProducts(products) {
-//   $("#table").empty();
-//   for (let index = 0; index < products.length; index++) {
-//     $("#table").append(`
-//         <tr>
-//         <td>${products[index].id}</td>
-//           <td>${products[index].name}</td>
-//           <td>${products[index].price}</td>
-//           <td>${products[index].rate}</td>
-//           <td>${products[index].sold}</td>
-//          <td>${products[index].sale}</td>
-//          <td>${products[index].install}</td>
-//          <td>${products[index].image}</td>
-//           <td ><button class="btn btn-edit" id="btn-edit-product">Sửa</button></td>
-//            <td> <button  class="btn btn-delete" id="btn-delete-product">Xoá</button></td>
-     
-//         </tr>
-//       `);
-//   }
-// }
+
